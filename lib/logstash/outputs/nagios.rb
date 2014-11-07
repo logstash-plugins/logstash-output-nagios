@@ -7,22 +7,22 @@ require "logstash/outputs/base"
 #
 # For this output to work, your event _must_ have the following Logstash event fields:
 #
-#  * `nagios\_host`
-#  * `nagios\_service`
+#  * `nagios_host`
+#  * `nagios_service`
 #
 # These Logstash event fields are supported, but optional:
 #
-#  * `nagios\_annotation`
-#  * `nagios\_level` (overrides `nagios\_level` configuration option)
+#  * `nagios_annotation`
+#  * `nagios_level` (overrides `nagios_level` configuration option)
 #
 # There are two configuration options:
 #
 #  * `commandfile` - The location of the Nagios external command file. Defaults
 #    to '/var/lib/nagios3/rw/nagios.cmd'
-#  * `nagios\_level` - Specifies the level of the check to be sent. Defaults to
-#    CRITICAL and can be overriden by setting the "nagios\_level" field to one
+#  * `nagios_level` - Specifies the level of the check to be sent. Defaults to
+#    CRITICAL and can be overriden by setting the "nagios_level" field to one
 #    of "OK", "WARNING", "CRITICAL", or "UNKNOWN"
-#
+# [source,ruby]
 #     output{
 #       if [message] =~ /(error|ERROR|CRITICAL)/ {
 #         nagios {
