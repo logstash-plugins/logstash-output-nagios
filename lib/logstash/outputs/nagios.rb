@@ -36,22 +36,20 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
   config_name "nagios"
 
   # The full path to your Nagios command file.
-  config :commandfile, :validate => :path, :default => "/var/lib/nagios3/rw/nagios.cmd"
+  config :commandfile, :default => "/var/lib/nagios3/rw/nagios.cmd"
 
   # The Nagios check level. Should be one of 0=OK, 1=WARNING, 2=CRITICAL,
   # 3=UNKNOWN. Defaults to 2 - CRITICAL.
   config :nagios_level, :validate => [ "0", "1", "2", "3" ], :default => "2"
 
-  public
   def register
     # nothing to do
   end # def register
 
-  public
   def receive(event)
     return unless output?(event)
 
-    if !File.exists?(@commandfile)
+    if !commandfile?
       @logger.warn("Skipping nagios output; command file is missing",
                    :commandfile => @commandfile, :missed_event => event)
       return
@@ -105,14 +103,24 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
     @logger.debug("Opening nagios command file", :commandfile => @commandfile,
                   :nagios_command => cmd)
     begin
-      File.open(@commandfile, "r+") do |f|
-        f.puts(cmd)
-        f.flush # TODO(sissel): probably don't need this.
-      end
+      send_to_nagios(cmd)
     rescue => e
       @logger.warn("Skipping nagios output; error writing to command file",
                    :commandfile => @commandfile, :missed_event => event,
                    :exception => e, :backtrace => e.backtrace)
     end
   end # def receive
-end # class LogStash::Outputs::Nagios
+
+  private
+
+  def commandfile?
+    File.exists?(@commandfile)
+  end
+
+  def send_to_nagios(cmd)
+    File.open(@commandfile, "r+") do |f|
+      f.puts(cmd)
+      f.flush # TODO(sissel): probably don't need this.
+    end
+  end
+end # clavss LogStash::Outputs::Nagios
