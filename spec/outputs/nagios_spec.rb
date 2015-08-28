@@ -15,7 +15,7 @@ describe LogStash::Outputs::Nagios do
 
     before(:each) do
       subject.register
-      expect(subject).to receive(:commandfile?).and_return(true)
+      expect(subject).to receive(:command_file_exist?).and_return(true)
     end
 
     it "send the event to nagios" do

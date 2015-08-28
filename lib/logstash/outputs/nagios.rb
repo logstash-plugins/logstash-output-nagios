@@ -49,7 +49,7 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
   def receive(event)
     return unless output?(event)
 
-    if !commandfile?
+    if !command_file_exist?
       @logger.warn("Skipping nagios output; command file is missing",
                    :commandfile => @commandfile, :missed_event => event)
       return
@@ -113,7 +113,7 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
 
   private
 
-  def commandfile?
+  def command_file_exist?
     File.exists?(@commandfile)
   end
 
@@ -123,4 +123,4 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
       f.flush # TODO(sissel): probably don't need this.
     end
   end
-end # clavss LogStash::Outputs::Nagios
+end # class LogStash::Outputs::Nagios
