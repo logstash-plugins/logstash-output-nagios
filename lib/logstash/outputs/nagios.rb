@@ -47,7 +47,7 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
   end # def register
 
   def receive(event)
-    return unless output?(event)
+    
 
     if !command_file_exist?
       @logger.warn("Skipping nagios output; command file is missing",
