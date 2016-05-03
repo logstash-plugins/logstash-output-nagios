@@ -60,25 +60,25 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
     # array indexes (host/service combos) and the arrays must be the same
     # length.
 
-    host = event["nagios_host"]
+    host = event.get("nagios_host")
     if !host
       @logger.warn("Skipping nagios output; nagios_host field is missing",
                    :missed_event => event)
       return
     end
 
-    service = event["nagios_service"]
+    service = event.get("nagios_service")
     if !service
       @logger.warn("Skipping nagios output; nagios_service field is missing",
                    "missed_event" => event)
       return
     end
 
-    annotation = event["nagios_annotation"]
+    annotation = event.get("nagios_annotation")
     level = @nagios_level
 
-    if event["nagios_level"]
-      event_level = [*event["nagios_level"]]
+    if event.get("nagios_level")
+      event_level = [*event.get("nagios_level")]
       case event_level[0].downcase
       when "ok"
         level = "0"
@@ -98,7 +98,7 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
       cmd += "#{annotation}: "
     end
     # In the multi-line case, escape the newlines for the nagios command file
-    cmd += (event["message"] || "<no message>").gsub("\n", "\\n")
+    cmd += (event.get("message") || "<no message>").gsub("\n", "\\n")
 
     @logger.debug("Opening nagios command file", :commandfile => @commandfile,
                   :nagios_command => cmd)
