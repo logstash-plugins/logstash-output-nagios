@@ -3,7 +3,7 @@ require "logstash/namespace"
 require "logstash/outputs/base"
 
 # The Nagios output is used for sending passive check results to Nagios via the
-# Nagios command file. This output currently supports Nagios 3.
+# Nagios command file. This output currently supports Nagios 3, Icinga 1 and Icinga 2.
 #
 # For this output to work, your event _must_ have the following Logstash event fields:
 #
