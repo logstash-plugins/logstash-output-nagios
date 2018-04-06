@@ -1,5 +1,6 @@
 :plugin: nagios
 :type: output
+:default_codec: plain
 
 ///////////////////////////////////////////
 START - GENERATED VARIABLES, DO NOT EDIT!
@@ -88,3 +89,5 @@ The Nagios check level. Should be one of 0=OK, 1=WARNING, 2=CRITICAL,
 
 [id="plugins-{type}s-{plugin}-common-options"]
 include::{include_path}/{type}.asciidoc[]
+
+:default_codec!:
