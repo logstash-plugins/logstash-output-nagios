@@ -19,6 +19,10 @@ END - GENERATED VARIABLES, DO NOT EDIT!
 
 include::{include_path}/plugin_header.asciidoc[]
 
+==== Installation
+
+For plugins not bundled by default, it is easy to install by running bin/logstash-plugin install logstash-output-nagios. See Working with plugins for more details.
+
 ==== Description
 
 The Nagios output is used for sending passive check results to Nagios via the
