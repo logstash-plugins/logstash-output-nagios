@@ -1,3 +1,6 @@
+## 3.0.7
+  - Fix: replace deprecated `File.exists?` with `File.exist?` for Ruby 3.4 (JRuby 10) compatibility [#11](https://github.com/logstash-plugins/logstash-output-nagios/pull/11)
+
 ## 3.0.6
   - Docs: Set the default_codec doc attribute.
 

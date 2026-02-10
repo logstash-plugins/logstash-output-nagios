@@ -114,7 +114,7 @@ class LogStash::Outputs::Nagios < LogStash::Outputs::Base
   private
 
   def command_file_exist?
-    File.exists?(@commandfile)
+    File.exist?(@commandfile)
   end
 
   def send_to_nagios(cmd)
